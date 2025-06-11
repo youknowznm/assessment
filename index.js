@@ -43,17 +43,15 @@ exports.createGreeting = (greetingFunc, greetingLabel) => {
 };
 
 exports.setDefaults = (defaultConfig) => {
-  return function (config) {
-    return {
-      ...defaultConfig,
-      ...config,
-    }
-  }
+  return config => ({
+    ...defaultConfig,
+    ...config,
+  })
 };
 
 exports.fetchUserByNameAndUsersCompany = async (userName, services) => {
-  const [status, users] = await Promise.all([services.fetchStatus(), services.fetchUsers()])
-  const user = users?.find(userItem => userItem.name === userName)
-  const company = await services.fetchCompanyById(user?.companyId)
+  const [status, users] = await Promise.all([services?.fetchStatus?.(), services?.fetchUsers?.()])
+  const user = users?.find(userItem => userItem?.name === userName)
+  const company = await services?.fetchCompanyById(user?.companyId)
   return {company, status, user}
 };
